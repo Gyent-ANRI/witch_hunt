@@ -105,5 +105,13 @@ public class Charactor {
 		
 	}
 	
-	
+	public void modifyScore(int s) {
+		
+		BroadCast.getObject().broad(name + " has " + s + " score");
+		score += s;
+		
+		if(score >= 5) {
+			GameController.getObject().gameOver();
+		}
+	}
 }

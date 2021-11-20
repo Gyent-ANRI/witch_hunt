@@ -1,6 +1,6 @@
 package gamebody;
 
-import Cartes.TestCard;
+import Cartes.*;
 
 public class RoundController {
 	
@@ -27,18 +27,23 @@ public class RoundController {
 	//now just give everyone TestCards
 	public void distributeCard() {
 		int num = listPlayers.length;
-		int cardNumber=2;
+		int cardNumber = 2;
 		switch(num) {
+		case 3:
+			cardNumber = 4;
+			break;
 		case 4:
 			cardNumber = 3;
+			break;
 		case 5:
 			cardNumber = 2;
+			break;
 		case 6:
 			cardNumber = 2;
 		}
 		for(int i = 1; i < num; i++) {
 			for(int j = 1; j <= cardNumber; j++) {
-				TestCard newCard = new TestCard();
+				RumourCard newCard = new AngryMob();
 				listPlayers[i-1].getCard(newCard);
 				newCard.setOwner(listPlayers[i-1]);
 			}

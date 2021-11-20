@@ -11,7 +11,7 @@ public class TestCard extends RumourCard{
 		super("TestCard", new CardEffect[] {new ChooseNextPlayer()}, new CardEffect[] {new ChooseNextPlayer()});
 		
 	}
-	
+	/*
 	public void witch() {
 		BroadCast.getObject().broad("The player " + super.getOwner().getName() + " has used witch of " + super.getName());
 		for(int i = 1; i <= super.getWitchEffect().length; i++) {
@@ -25,4 +25,5 @@ public class TestCard extends RumourCard{
 			super.getHuntEffect()[i-1].effective(super.getOwner());
 		}
 	}
+	*/
 }
