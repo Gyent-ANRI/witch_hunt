@@ -17,14 +17,17 @@ public class Charactor {
 	private Behavior myBehavior;
 	private InteractionWindow myInteractionWindow;
 	private boolean identityRevealed;
-	private boolean outOfRound;
 	
 	public Charactor() {
 		score = 0;
 		myInteractionWindow = new InteractionWindow();
 		myCard = new RumourCard[0];
 		identityRevealed = false;
-		outOfRound = false;
+	}
+	
+	public void reset() {
+		myCard = new RumourCard[0];
+		identityRevealed = false;
 	}
 	
 	public InteractionWindow getInteractionWindow() {return myInteractionWindow;}
@@ -37,8 +40,6 @@ public class Charactor {
 	
 	public RumourCard[] cardList(){return myCard;}
 	
-	public void outOfRound() {outOfRound = true;}
-	
 	public void getCard(RumourCard card) {
 		RumourCard[] oddCard = myCard;
 		myCard = new RumourCard[oddCard.length + 1];
@@ -48,12 +49,12 @@ public class Charactor {
 		myCard[oddCard.length] = card;
 	}
 	
-	public void disCard(String cardName) {
+	public void disCard(RumourCard card) {
 		RumourCard[] oddCard = myCard;
-		myCard = new RumourCard[myCard.length - 1];
+		myCard = new RumourCard[oddCard.length - 1];
 		for(int i = 0; i < oddCard.length; i++) {
 			int j = 0;
-			if(oddCard[i].getName() == cardName);
+			if(oddCard[i] == card);
 			else {
 				myCard[j] = oddCard[i];
 				j++;
@@ -111,7 +112,18 @@ public class Charactor {
 		score += s;
 		
 		if(score >= 5) {
-			GameController.getObject().gameOver();
+			GameController.getObject().gameOver(this);
 		}
+		if(score < 0) {
+			score = 0;
+		}
+	}
+	
+	public Identity getIdentity() {
+		return identity;
+	}
+	
+	public boolean identityRevealed() {
+		return identityRevealed;
 	}
 }

@@ -2,6 +2,7 @@ package Behavior;
 
 import gamebody.Charactor;
 import gamebody.GameController;
+import gamebody.RoundController;
 
 public class Accuse extends Behavior{
 	
@@ -11,7 +12,7 @@ public class Accuse extends Behavior{
 	public void behave() {
 		
 		//get name list
-		Charactor[] myplayers = GameController.getObject().getCharactorList();
+		Charactor[] myplayers = RoundController.getObject().getCharactorList();
 		String[] nameOfPlayers = new String[myplayers.length];
 		for(int i = 1; i <= myplayers.length; i++) {
 			nameOfPlayers[i-1] = myplayers[i-1].getName(); 

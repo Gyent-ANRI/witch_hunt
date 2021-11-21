@@ -14,7 +14,8 @@ public class RevealIdentity extends Behavior{
 		Identity identity = super.getActor().revealIdentity();
 		switch(identity) {
 		case witch:
-			super.getActor().outOfRound();
+			RoundController.getObject().outOfRound(super.getActor());
+			reasonOne.modifyScore(1);
 			RoundController.getObject().startPlay(reasonOne);
 			break;
 		case villager:

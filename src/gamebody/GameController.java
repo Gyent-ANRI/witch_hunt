@@ -26,12 +26,17 @@ public class GameController {
 		
 		//Create a game lancer or player1
 		Charactor lancer = new Charactor();
+		int numPlayer = 0;
 		
 		//Ask lancer name and number of player
 		String name = lancer.getInteractionWindow().askAndWait("What's your name? ");
 		lancer.setName(name);
-		String num = lancer.getInteractionWindow().askAndWait("Number of player? ");
-		int numPlayer = Integer.valueOf(num).intValue();
+		while(!(numPlayer <= 6 && numPlayer >= 3)) {
+			String num = lancer.getInteractionWindow().askAndWait("Number of player?(3-6) ");
+			numPlayer = Integer.valueOf(num).intValue();
+			if(!(numPlayer <= 6 && numPlayer >= 3))
+				lancer.getInteractionWindow().outPut("Wrong Input!");
+		}
 		myPlayers = new Charactor[numPlayer];
 		myPlayers[0] = lancer;
 
@@ -55,12 +60,29 @@ public class GameController {
 		myRoundController.startPlay(myRoundController.decideFirstPlayer());
 	}
 	
-	public void roundOver() {
-		System.out.println("The round is over");
+	public void roundOver(Charactor survivor) {
+		BroadCast.getObject().broad("Round " + numRound + " is over, survivor is " + survivor.getName());
+		
+		switch(survivor.getIdentity()) {
+		case witch:
+			survivor.modifyScore(2);
+			break;
+		case villager:
+			survivor.modifyScore(1);
+		}
+		
+		roundStart();
 	}
 	
-	public void gameOver() {
-		System.out.println("The game is over");
+	public void gameOver(Charactor winner){
+		BroadCast.getObject().broad("Game over, winner is " + winner.getName());
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.exit(0);
 	}
 	
 	public Charactor[] getCharactorList() {

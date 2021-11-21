@@ -18,6 +18,7 @@ public class RevealRumourCard_Hunt extends Behavior{
 		//ask actor 
 		super.getActor().getInteractionWindow().outPut("please chose the card you want to reveal");
 		int answer = super.getActor().getInteractionWindow().makeChoice(nameOfCards);
+		//super.getActor().disCard(myCards[answer-1]);
 		myCards[answer-1].hunt();
 		
 	}

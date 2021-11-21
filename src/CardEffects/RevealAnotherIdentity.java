@@ -7,7 +7,7 @@ public class RevealAnotherIdentity extends CardEffect{
 	public RevealAnotherIdentity() {}
 	
 	public void effective(Charactor actor) {
-		Charactor[] myplayers = GameController.getObject().getCharactorList();
+		Charactor[] myplayers = RoundController.getObject().getCharactorList();
 		String[] nameOfPlayers = new String[myplayers.length];
 		for(int i = 1; i <= myplayers.length; i++) {
 			nameOfPlayers[i-1] = myplayers[i-1].getName(); 

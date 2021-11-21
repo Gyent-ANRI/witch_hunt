@@ -33,12 +33,20 @@ public class InteractionWindow {
 	}
 	
 	public int makeChoice(String[] info) {
-		System.out.println("Please make Choice(enter with number) :");
-		for(int i = 1; i <= info.length; i++) {
-			System.out.println(i + "." + info[i-1]);
+		String answer = null;
+		boolean loop = true;
+		while(loop) {
+			System.out.println("Please make Choice(enter with number) :");
+			for(int i = 1; i <= info.length; i++) {
+				System.out.println(i + "." + info[i-1]);
+			}
+			Scanner scan = new Scanner(System.in);
+			answer = scan.nextLine();
+			if(Integer.valueOf(answer).intValue() <= 0 || Integer.valueOf(answer).intValue() >= info.length) {
+				System.out.println("wrong input!");
+			}
+			else loop = false;
 		}
-		Scanner scan = new Scanner(System.in);
-		String answer = scan.nextLine();
 		return Integer.valueOf(answer).intValue();
 	}
 }

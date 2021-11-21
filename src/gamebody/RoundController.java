@@ -71,7 +71,40 @@ public class RoundController {
 	}
 	
 	public void startPlay(Charactor player) {
+		
+		//if there is only one player with identity no revealed, we call roundOver().
+		int numOfSurvivor = 0;
+		Charactor survivor = null;
+		for(int i = 1; i <= listPlayers.length; i++) {
+			if(!listPlayers[i-1].identityRevealed()) {
+				numOfSurvivor += 1;
+				survivor = listPlayers[i-1];
+			}
+		}
+		if(numOfSurvivor == 1) {
+			GameController.getObject().roundOver(survivor);
+		}
+		
+		
 		BroadCast.getObject().broad(player.getName() + "'s turn");
 		player.takeTurn();
+	}
+	
+	public void outOfRound(Charactor outer) {
+		Charactor[] old = listPlayers;
+		int j = 0;
+		listPlayers = new Charactor[old.length - 1];
+		for(int i = 1; i <= old.length; i++) {
+			if(old[i-1] != outer) {
+				listPlayers[j] = old[i-1];
+				j++;
+			}
+		}
+		
+		BroadCast.getObject().broad(outer.getName() +" is out of round");
+	}
+	
+	public Charactor[] getCharactorList() {
+		return listPlayers;
 	}
 }
