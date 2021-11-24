@@ -41,6 +41,7 @@ public class Charactor {
 	public RumourCard[] cardList(){return myCard;}
 	
 	public void getCard(RumourCard card) {
+		myInteractionWindow.outPut("You get The Card: " + card.getName());
 		RumourCard[] oddCard = myCard;
 		myCard = new RumourCard[oddCard.length + 1];
 		for (int i = 0; i < oddCard.length; i++) {
@@ -49,13 +50,12 @@ public class Charactor {
 		myCard[oddCard.length] = card;
 	}
 	
-	public void disCard(RumourCard card) {
+	public void cardUsed(RumourCard card) {
 		RumourCard[] oddCard = myCard;
 		myCard = new RumourCard[oddCard.length - 1];
+		int j = 0;
 		for(int i = 0; i < oddCard.length; i++) {
-			int j = 0;
-			if(oddCard[i] == card);
-			else {
+			if(!oddCard[i].equals(card)) {
 				myCard[j] = oddCard[i];
 				j++;
 			}

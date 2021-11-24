@@ -1,5 +1,8 @@
 package CardEffects;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+
 import gamebody.*;
 
 public class RevealAnotherIdentity extends CardEffect{
@@ -7,16 +10,24 @@ public class RevealAnotherIdentity extends CardEffect{
 	public RevealAnotherIdentity() {}
 	
 	public void effective(Charactor actor) {
-		Charactor[] myplayers = RoundController.getObject().getCharactorList();
-		String[] nameOfPlayers = new String[myplayers.length];
-		for(int i = 1; i <= myplayers.length; i++) {
-			nameOfPlayers[i-1] = myplayers[i-1].getName(); 
+		//get a copy of name list
+		LinkedList<Charactor> oldlist = RoundController.getObject().getCharactorList();
+		LinkedList<Charactor> myplayers = new LinkedList<Charactor>();
+		Iterator<Charactor> it = oldlist.iterator();
+		while(it.hasNext()) {
+			myplayers.add(it.next());
+		}
+		myplayers.remove(actor);
+		
+		String[] nameOfPlayers = new String[myplayers.size()];
+		for(int i = 1; i <= myplayers.size(); i++) {
+			nameOfPlayers[i-1] = myplayers.get(i-1).getName(); 
 		}
 		
 		actor.getInteractionWindow().outPut("Reveal who's identity?");
 		int answer=actor.getInteractionWindow().makeChoice(nameOfPlayers);
 		
-		Identity id = myplayers[answer-1].revealIdentity();
+		Identity id = myplayers.get(answer-1).revealIdentity();
 		
 		switch(id) {
 		case witch:
@@ -25,7 +36,7 @@ public class RevealAnotherIdentity extends CardEffect{
 			break;
 		case villager:
 			actor.modifyScore(-2);
-			RoundController.getObject().startPlay(myplayers[answer-1]);
+			RoundController.getObject().startPlay(myplayers.get(answer-1));
 		}
 	} 
 }

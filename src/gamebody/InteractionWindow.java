@@ -42,7 +42,7 @@ public class InteractionWindow {
 			}
 			Scanner scan = new Scanner(System.in);
 			answer = scan.nextLine();
-			if(Integer.valueOf(answer).intValue() <= 0 || Integer.valueOf(answer).intValue() >= info.length) {
+			if(Integer.valueOf(answer).intValue() <= 0 || Integer.valueOf(answer).intValue() > info.length) {
 				System.out.println("wrong input!");
 			}
 			else loop = false;

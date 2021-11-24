@@ -10,14 +10,10 @@ public abstract class RumourCard {
 	private Charactor owner;
 	private CardEffect[] witchEffect;
 	private CardEffect[] huntEffect;
-	private boolean isRevealed;
-	private boolean isDiscarded;
 	
 	public RumourCard() {};
 	public RumourCard(String n, CardEffect[] witch, CardEffect[] hunt) {
 		name = n;
-		isRevealed = false; 
-		isDiscarded = false;
 		witchEffect = witch;
 		huntEffect = hunt;
 	}

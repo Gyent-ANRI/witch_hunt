@@ -1,17 +1,19 @@
 package gamebody;
 
+import java.util.LinkedList;
+
 import Cartes.*;
 
 public class RoundController {
 	
-	private Charactor[] listPlayers;
+	private LinkedList<Charactor> listPlayers;
 	private int numRound;
 	static RoundController myObject = null;
 	
 	private RoundController() {
 	}
 	
-	static public RoundController newObject(int num, Charactor[] list) {
+	static public RoundController newObject(int num, LinkedList<Charactor> list) {
 		
 		myObject = new RoundController();
 		myObject.numRound = num;
@@ -26,9 +28,10 @@ public class RoundController {
 	
 	//now just give everyone TestCards
 	public void distributeCard() {
-		int num = listPlayers.length;
-		int cardNumber = 2;
-		switch(num) {
+		//decide number of Card for each player
+		int numplayer = listPlayers.size();
+		int cardNumber = 0;
+		switch(numplayer) {
 		case 3:
 			cardNumber = 4;
 			break;
@@ -41,30 +44,75 @@ public class RoundController {
 		case 6:
 			cardNumber = 2;
 		}
-		for(int i = 1; i < num; i++) {
+		
+		//Get a card array
+		RumourCard[] myCardList = new RumourCard[] {
+				new AngryMob(),
+				new BlackCat(),
+				new Broomstick(),
+				new Cauldron(),
+				new DuckingStool(),
+				new EvilEye(),
+				new HookedNose(),
+				new PetNewt(),
+				new PointedHat(),
+				new TheInquisition(),
+				new Toad(),
+				new Wart(),
+		};
+		//get a random double array
+		double[] poid = new double[] {Math.random(),Math.random(),Math.random(),Math.random(),
+				Math.random(),Math.random(),Math.random(),Math.random(),
+				Math.random(),Math.random(),Math.random(),Math.random()};
+		
+		//sort the double array and the card
+		boolean loop = true;
+		while(loop) {
+			int numChange = 0;
+			for(int i = 1; i <= 11; i++) {
+				if(poid[i] < poid[i-1]) {
+					double temp = poid[i];
+					poid[i] = poid[i-1];
+					poid[i-1] = temp;
+					
+					RumourCard tempCard = myCardList[i];
+					myCardList[i] = myCardList[i-1];
+					myCardList[i-1] = tempCard;
+					
+					numChange += 1;
+				}
+			}
+			if(numChange == 0) {
+				loop = false;
+			}
+		}
+		
+		// distribute the j-th cards of the i-th player
+		for(int i = 1; i <= numplayer; i++) {
 			for(int j = 1; j <= cardNumber; j++) {
-				RumourCard newCard = new AngryMob();
-				listPlayers[i-1].getCard(newCard);
-				newCard.setOwner(listPlayers[i-1]);
+				listPlayers.get(i-1).getCard(myCardList[(i-1)*cardNumber+j-1]);
+				myCardList[(i-1)*cardNumber+j-1].setOwner(listPlayers.get(i-1));
 			}
 		}
 	}
 	
 	public Charactor decideFirstPlayer() {
-		return listPlayers[0];
+		int num = 1 + (int)(Math.random()*(listPlayers.size() - 1));
+		
+		return listPlayers.get(num);
 	}
 	
 	public void chooseIdentity() {
-		for(int i = 1; i <= listPlayers.length; i++) {
-			listPlayers[i-1].getInteractionWindow().outPut("Choose Your Identity");
+		for(int i = 1; i <= listPlayers.size(); i++) {
+			listPlayers.get(i-1).getInteractionWindow().outPut("Choose Your Identity");
 			
-			int answer = listPlayers[i-1].getInteractionWindow().makeChoice(new String[] {"Witch", "Villager"});
+			int answer = listPlayers.get(i-1).getInteractionWindow().makeChoice(new String[] {"Witch", "Villager"});
 			switch(answer) {
 			case 1:
-				listPlayers[i-1].setIdentity(Identity.witch);
+				listPlayers.get(i-1).setIdentity(Identity.witch);
 				break;
 			case 2:
-				listPlayers[i-1].setIdentity(Identity.villager);
+				listPlayers.get(i-1).setIdentity(Identity.villager);
 				break;
 			}
 		}
@@ -75,10 +123,10 @@ public class RoundController {
 		//if there is only one player with identity no revealed, we call roundOver().
 		int numOfSurvivor = 0;
 		Charactor survivor = null;
-		for(int i = 1; i <= listPlayers.length; i++) {
-			if(!listPlayers[i-1].identityRevealed()) {
+		for(int i = 1; i <= listPlayers.size(); i++) {
+			if(!listPlayers.get(i-1).identityRevealed()) {
 				numOfSurvivor += 1;
-				survivor = listPlayers[i-1];
+				survivor = listPlayers.get(i-1);
 			}
 		}
 		if(numOfSurvivor == 1) {
@@ -91,20 +139,11 @@ public class RoundController {
 	}
 	
 	public void outOfRound(Charactor outer) {
-		Charactor[] old = listPlayers;
-		int j = 0;
-		listPlayers = new Charactor[old.length - 1];
-		for(int i = 1; i <= old.length; i++) {
-			if(old[i-1] != outer) {
-				listPlayers[j] = old[i-1];
-				j++;
-			}
-		}
-		
+		listPlayers.remove(outer);
 		BroadCast.getObject().broad(outer.getName() +" is out of round");
 	}
 	
-	public Charactor[] getCharactorList() {
+	public LinkedList<Charactor> getCharactorList() {
 		return listPlayers;
 	}
 }

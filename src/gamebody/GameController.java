@@ -1,17 +1,19 @@
 package gamebody;
 
+import java.util.LinkedList;
+
 public class GameController {
 	
 	//variable
 	private int numRound;
-	private Charactor[] myPlayers;
+	private LinkedList<Charactor> myPlayers;
 	private RoundController myRoundController;
 	static private GameController myObject = null;
 	
 	//methods
 	private GameController() {
 		numRound = 0;
-		myPlayers = null;
+		myPlayers = new LinkedList<Charactor>();
 	}
 	
 	static public GameController getObject() {
@@ -37,15 +39,14 @@ public class GameController {
 			if(!(numPlayer <= 6 && numPlayer >= 3))
 				lancer.getInteractionWindow().outPut("Wrong Input!");
 		}
-		myPlayers = new Charactor[numPlayer];
-		myPlayers[0] = lancer;
+		myPlayers.add(lancer);
 
 		
 		//create players and set name
 		for(int i = 1; i < numPlayer; i++) {
-			myPlayers[i] = new Charactor();
-			String playerName = myPlayers[i].getInteractionWindow().askAndWait("What's your name? ");
-			myPlayers[i].setName(playerName);
+			myPlayers.add(new Charactor());
+			String playerName = myPlayers.get(i).getInteractionWindow().askAndWait("What's your name? ");
+			myPlayers.get(i).setName(playerName);
 		}
 		
 		roundStart();
@@ -54,6 +55,10 @@ public class GameController {
 	public void roundStart() {
 		numRound += 1;
 		BroadCast.getObject().broad("Round " + numRound + " started");
+		//reset the cards and the status of the players
+		for(int i = 1; i <= myPlayers.size(); i++) {
+			myPlayers.get(i-1).reset();
+		}
 		myRoundController = RoundController.newObject(numRound, myPlayers);
 		myRoundController.distributeCard();
 		myRoundController.chooseIdentity();
@@ -85,7 +90,7 @@ public class GameController {
 		System.exit(0);
 	}
 	
-	public Charactor[] getCharactorList() {
+	public LinkedList<Charactor> getCharactorList() {
 		return myPlayers;
 	}
 }
