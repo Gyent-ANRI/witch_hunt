@@ -1,5 +1,6 @@
 package gamebody;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import Cartes.*;
@@ -17,7 +18,11 @@ public class RoundController {
 		
 		myObject = new RoundController();
 		myObject.numRound = num;
-		myObject.listPlayers = list;
+		myObject.listPlayers = new LinkedList<Charactor>();
+		Iterator<Charactor> it = list.iterator();
+		while(it.hasNext()) {
+			myObject.listPlayers.add(it.next());
+		}
 
 		return myObject;
 	}
