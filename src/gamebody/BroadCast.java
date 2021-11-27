@@ -1,5 +1,7 @@
 package gamebody;
 
+import Players.InteractionWindow;
+
 public class BroadCast {
 	
 	private BroadCast() {listBC = new InteractionWindow[0];};

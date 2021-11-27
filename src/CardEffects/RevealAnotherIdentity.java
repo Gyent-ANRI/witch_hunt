@@ -3,6 +3,7 @@ package CardEffects;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import Players.Charactor;
 import gamebody.*;
 
 public class RevealAnotherIdentity extends CardEffect{

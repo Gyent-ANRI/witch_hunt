@@ -1,6 +1,6 @@
 package CardEffects;
 
-import gamebody.Charactor;
+import Players.Charactor;
 
 public class DiscardFromHand extends CardEffect{
 	public DiscardFromHand() {};

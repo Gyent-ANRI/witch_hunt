@@ -1,6 +1,6 @@
 package CardEffects;
 
-import gamebody.Charactor;
+import Players.Charactor;
 
 public class AccuserDiscard extends CardEffect{
 	public AccuserDiscard() {};

@@ -1,6 +1,6 @@
 package CardEffects;
 
-import gamebody.Charactor;
+import Players.Charactor;
 
 public class TakeOthersRevealedCard extends CardEffect{
 	public TakeOthersRevealedCard() {};

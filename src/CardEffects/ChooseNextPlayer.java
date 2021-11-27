@@ -3,7 +3,7 @@ package CardEffects;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import gamebody.Charactor;
+import Players.Charactor;
 import gamebody.GameController;
 import gamebody.RoundController;
 

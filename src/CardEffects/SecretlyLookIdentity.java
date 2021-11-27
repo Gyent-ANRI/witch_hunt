@@ -1,6 +1,6 @@
 package CardEffects;
 
-import gamebody.Charactor;
+import Players.Charactor;
 
 public class SecretlyLookIdentity extends CardEffect{
 	public SecretlyLookIdentity() {};

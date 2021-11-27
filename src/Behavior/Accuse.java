@@ -3,7 +3,7 @@ package Behavior;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import gamebody.Charactor;
+import Players.Charactor;
 import gamebody.GameController;
 import gamebody.RoundController;
 
@@ -19,7 +19,10 @@ public class Accuse extends Behavior{
 		LinkedList<Charactor> myplayers = new LinkedList<Charactor>();
 		Iterator<Charactor> it = oldlist.iterator();
 		while(it.hasNext()) {
-			myplayers.add(it.next());
+			//reduce those who's identity has been revealed
+			Charactor c = it.next();
+			if(c.identityRevealed() == false)
+				myplayers.add(c);
 		}
 		myplayers.remove(super.getActor());
 		

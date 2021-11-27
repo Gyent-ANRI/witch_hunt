@@ -1,6 +1,6 @@
 package Behavior;
 
-import gamebody.Charactor;
+import Players.Charactor;
 
 public abstract class Behavior {
 	

@@ -1,6 +1,6 @@
 package CardEffects;
 
-import gamebody.Charactor;
+import Players.Charactor;
 import gamebody.GameController;
 import gamebody.RoundController;
 

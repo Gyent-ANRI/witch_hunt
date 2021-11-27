@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import Cartes.*;
+import Players.Charactor;
 
 public class RoundController {
 	
@@ -102,7 +103,7 @@ public class RoundController {
 	}
 	
 	public Charactor decideFirstPlayer() {
-		int num = 1 + (int)(Math.random()*(listPlayers.size() - 1));
+		int num = (int)(Math.random()*(listPlayers.size() - 0.1));
 		
 		return listPlayers.get(num);
 	}

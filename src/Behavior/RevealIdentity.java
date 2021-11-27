@@ -1,6 +1,6 @@
 package Behavior;
 
-import gamebody.Charactor;
+import Players.Charactor;
 import gamebody.Identity;
 import gamebody.RoundController;
 

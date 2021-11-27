@@ -1,8 +1,8 @@
 package Cartes;
 
 import CardEffects.CardEffect;
+import Players.Charactor;
 import gamebody.BroadCast;
-import gamebody.Charactor;
 
 public abstract class RumourCard {
 

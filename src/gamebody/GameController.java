@@ -2,6 +2,9 @@ package gamebody;
 
 import java.util.LinkedList;
 
+import Players.Charactor;
+import Players.VirtualPlayer;
+
 public class GameController {
 	
 	//variable
@@ -29,10 +32,11 @@ public class GameController {
 		//Create a game lancer or player1
 		Charactor lancer = new Charactor();
 		int numPlayer = 0;
-		
-		//Ask lancer name and number of player
+		int numVirtual = -1;
+		//Ask lancer name
 		String name = lancer.getInteractionWindow().askAndWait("What's your name? ");
 		lancer.setName(name);
+		//Ask number of player
 		while(!(numPlayer <= 6 && numPlayer >= 3)) {
 			String num = lancer.getInteractionWindow().askAndWait("Number of player?(3-6) ");
 			numPlayer = Integer.valueOf(num).intValue();
@@ -40,13 +44,25 @@ public class GameController {
 				lancer.getInteractionWindow().outPut("Wrong Input!");
 		}
 		myPlayers.add(lancer);
-
+		//Ask number of Virtual player
+		while(!(numVirtual <= numPlayer - 1 && numVirtual >= 0)) {
+			String numV = lancer.getInteractionWindow().askAndWait("Number of virtual player?(0-" + (numPlayer-1) + ")");
+			numVirtual = Integer.valueOf(numV).intValue();
+			if(!(numVirtual <= numPlayer - 1 && numVirtual >= 0))
+				lancer.getInteractionWindow().outPut("Wrong Input!");
+		}
+		
+		
+		
 		
 		//create players and set name
-		for(int i = 1; i < numPlayer; i++) {
+		for(int i = 1; i < numPlayer-numVirtual; i++) {
 			myPlayers.add(new Charactor());
 			String playerName = myPlayers.get(i).getInteractionWindow().askAndWait("What's your name? ");
 			myPlayers.get(i).setName(playerName);
+		}
+		for(int i = 0; i < numVirtual; i++) {
+			myPlayers.add(new VirtualPlayer());
 		}
 		
 		roundStart();
