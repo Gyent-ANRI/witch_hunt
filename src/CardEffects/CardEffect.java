@@ -1,10 +1,10 @@
 package CardEffects;
 
-import Players.Charactor;
+import Behavior.Behavior;
 
 public abstract class CardEffect {
 	
 	public CardEffect() {}
 	
-	public void effective(Charactor owner) {};
+	public void effective(Behavior behavior) {};
 }

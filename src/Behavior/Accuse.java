@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import Players.Charactor;
-import gamebody.GameController;
 import gamebody.RoundController;
 
 public class Accuse extends Behavior{
@@ -14,7 +13,6 @@ public class Accuse extends Behavior{
 	
 	public void behave() {
 		
-		//get a copy of name list
 		LinkedList<Charactor> oldlist = RoundController.getObject().getCharactorList();
 		LinkedList<Charactor> myplayers = new LinkedList<Charactor>();
 		Iterator<Charactor> it = oldlist.iterator();

@@ -1,13 +1,13 @@
 package CardEffects;
 
-import Players.Charactor;
+import Behavior.Behavior;
 
 public class RevealYourIdentity extends CardEffect{
 	public RevealYourIdentity() {};
 	
-	public void effective(Charactor owner) {
+	public void effective(Behavior behavior) {
 		CardEffect t = new TakeNextTurn();
-		t.effective(owner);
+		t.effective(behavior);
 	}
 
 }

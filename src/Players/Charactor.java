@@ -60,7 +60,7 @@ public class Charactor {
 		myCard[oddCard.length] = card;
 	}
 	
-	public void cardUsed(RumourCard card) {
+	public void reduceCard(RumourCard card) {
 		RumourCard[] oddCard = myCard;
 		myCard = new RumourCard[oddCard.length - 1];
 		int j = 0;

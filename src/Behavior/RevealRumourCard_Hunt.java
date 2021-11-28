@@ -2,7 +2,6 @@ package Behavior;
 
 import Cartes.RumourCard;
 import Players.Charactor;
-import gamebody.RevealedCardArea;
 
 public class RevealRumourCard_Hunt extends Behavior{
 	
@@ -22,9 +21,7 @@ public class RevealRumourCard_Hunt extends Behavior{
 			//ask actor 
 			super.getActor().getInteractionWindow().outPut("please chose the card you want to reveal");
 			int answer = super.getActor().getInteractionWindow().makeChoice(nameOfCards);
-			super.getActor().cardUsed(myCards[answer-1]);
-			RevealedCardArea.getObject().addCard(myCards[answer-1]);
-			myCards[answer-1].hunt();
+			myCards[answer-1].hunt(this);
 		}
 		else {
 			super.getActor().getInteractionWindow().outPut("You don't have rumour card!");

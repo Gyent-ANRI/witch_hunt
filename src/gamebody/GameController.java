@@ -75,7 +75,7 @@ public class GameController {
 		for(int i = 1; i <= myPlayers.size(); i++) {
 			myPlayers.get(i-1).reset();
 		}
-		myRoundController = RoundController.newObject(numRound, myPlayers);
+		myRoundController = RoundController.newObject(myPlayers);
 		myRoundController.distributeCard();
 		myRoundController.chooseIdentity();
 		myRoundController.startPlay(myRoundController.decideFirstPlayer());

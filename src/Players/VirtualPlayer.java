@@ -4,6 +4,7 @@ import Behavior.Accuse;
 import Behavior.RevealIdentity;
 import Behavior.RevealRumourCard_Hunt;
 import Behavior.RevealRumourCard_Witch;
+import Cartes.TheInquisition;
 import gamebody.BroadCast;
 
 public class VirtualPlayer extends Charactor{
@@ -29,11 +30,11 @@ public class VirtualPlayer extends Charactor{
 	
 	public void accused(Charactor reasonOne) {
 		BroadCast.getObject().broad(super.getName() + " is accused");
-		if(myCard.length != 0) {
-			myBehavior = new RevealRumourCard_Witch(reasonOne,this);
+		if( (myCard.length == 0) || (myCard.length == 1) && myCard[0] instanceof TheInquisition) {
+			myBehavior = new RevealIdentity(reasonOne,this);
 		}
 		else {
-			myBehavior = new RevealIdentity(reasonOne,this);
+			myBehavior = new RevealRumourCard_Witch(reasonOne,this);
 		}
 		myBehavior.behave();
 	}

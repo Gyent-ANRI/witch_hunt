@@ -9,16 +9,14 @@ import Players.Charactor;
 public class RoundController {
 	
 	private LinkedList<Charactor> listPlayers;
-	private int numRound;
 	static RoundController myObject = null;
 	
 	private RoundController() {
 	}
 	
-	static public RoundController newObject(int num, LinkedList<Charactor> list) {
+	static public RoundController newObject(LinkedList<Charactor> list) {
 		
 		myObject = new RoundController();
-		myObject.numRound = num;
 		myObject.listPlayers = new LinkedList<Charactor>();
 		Iterator<Charactor> it = list.iterator();
 		while(it.hasNext()) {
@@ -149,7 +147,10 @@ public class RoundController {
 		BroadCast.getObject().broad(outer.getName() +" is out of round");
 	}
 	
+	//return a copy of listPlayers and make sure that only outOfRound() is able to change listPlayers
 	public LinkedList<Charactor> getCharactorList() {
-		return listPlayers;
+		LinkedList<Charactor> copy = new LinkedList<Charactor>();
+		copy.addAll(listPlayers);
+		return copy;
 	}
 }

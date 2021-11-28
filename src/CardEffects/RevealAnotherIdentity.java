@@ -3,6 +3,8 @@ package CardEffects;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import Cartes.Broomstick;
+import Cartes.RumourCard;
 import Players.Charactor;
 import gamebody.*;
 
@@ -11,20 +13,37 @@ public class RevealAnotherIdentity extends CardEffect{
 	public RevealAnotherIdentity() {}
 	
 	public void effective(Charactor actor) {
-		//get a copy of name list
-		LinkedList<Charactor> oldlist = RoundController.getObject().getCharactorList();
-		LinkedList<Charactor> myplayers = new LinkedList<Charactor>();
-		Iterator<Charactor> it = oldlist.iterator();
-		while(it.hasNext()) {
-			myplayers.add(it.next());
-		}
+		//get list of players
+		LinkedList<Charactor> myplayers = RoundController.getObject().getCharactorList();
 		myplayers.remove(actor);
 		
+		//remove those who's identity is revealed.
+		Iterator<Charactor> it = myplayers.iterator();
+		while(it.hasNext()) {
+			Charactor c = it.next();
+			if(c.identityRevealed()) {
+				myplayers.remove(c);
+			}
+		}
+		
+		//check whether someone has revealed Broomstick
+		LinkedList<RumourCard> cardlist = RevealedCardArea.getObject().getCard();
+		Iterator<RumourCard> it2 = cardlist.iterator();
+		while(it2.hasNext()) {
+			RumourCard card = it2.next();
+			if(card instanceof Broomstick) {
+				myplayers.remove(card.getOwner());
+			}
+		}
+		
+		
+		//get name list.
 		String[] nameOfPlayers = new String[myplayers.size()];
 		for(int i = 1; i <= myplayers.size(); i++) {
 			nameOfPlayers[i-1] = myplayers.get(i-1).getName(); 
 		}
 		
+		//ask actor
 		actor.getInteractionWindow().outPut("Reveal who's identity?");
 		int answer=actor.getInteractionWindow().makeChoice(nameOfPlayers);
 		

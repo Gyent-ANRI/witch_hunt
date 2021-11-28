@@ -1,32 +1,26 @@
 package CardEffects;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 
+import Behavior.Behavior;
 import Players.Charactor;
-import gamebody.GameController;
 import gamebody.RoundController;
 
 public class ChooseNextPlayer extends CardEffect {
 	
 	public ChooseNextPlayer() {}
-	public void effective(Charactor actor) {
+	public void effective(Behavior behavior) {
 		//get name list
-		LinkedList<Charactor> oldlist = RoundController.getObject().getCharactorList();
-		LinkedList<Charactor> myplayers = new LinkedList<Charactor>();
-		Iterator<Charactor> it = oldlist.iterator();
-		while(it.hasNext()) {
-			myplayers.add(it.next());
-		}
-		myplayers.remove(actor);
+		LinkedList<Charactor> myplayers = RoundController.getObject().getCharactorList();
+		myplayers.remove(behavior.getActor());
 		
 		String[] nameOfPlayers = new String[myplayers.size()];
 		for(int i = 1; i <= myplayers.size(); i++) {
 			nameOfPlayers[i-1] = myplayers.get(i-1).getName(); 
 		}
 		
-		actor.getInteractionWindow().outPut("Please choose next player ");
-		int answer = actor.getInteractionWindow().makeChoice(nameOfPlayers);
+		behavior.getActor().getInteractionWindow().outPut("Please choose next player ");
+		int answer = behavior.getActor().getInteractionWindow().makeChoice(nameOfPlayers);
 		
 		RoundController.getObject().startPlay(myplayers.get(answer-1));
 	}

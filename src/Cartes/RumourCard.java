@@ -1,5 +1,6 @@
 package Cartes;
 
+import Behavior.Behavior;
 import CardEffects.CardEffect;
 import Players.Charactor;
 import gamebody.BroadCast;
@@ -18,17 +19,17 @@ public abstract class RumourCard {
 		huntEffect = hunt;
 	}
 	
-	public void witch() {
+	public void witch(Behavior behavior) {
 		BroadCast.getObject().broad("The player " + getOwner().getName() + " has used witch of " + getName());
 		for(int i = 1; i <= getWitchEffect().length; i++) {
-			getWitchEffect()[i-1].effective(getOwner());
+			getWitchEffect()[i-1].effective(behavior);
 		}
 	}
 	
-	public void hunt() {
+	public void hunt(Behavior behavior) {
 		BroadCast.getObject().broad("The player " + getOwner().getName() + " has used hunt of " + getName());
 		for(int i = 1; i <= getHuntEffect().length; i++) {
-			getHuntEffect()[i-1].effective(getOwner());
+			getHuntEffect()[i-1].effective(behavior);
 		}
 	}
 	

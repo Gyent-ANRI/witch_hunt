@@ -1,12 +1,11 @@
 package CardEffects;
 
-import Players.Charactor;
-import gamebody.GameController;
+import Behavior.Behavior;
 import gamebody.RoundController;
 
 public class TakeNextTurn extends CardEffect{
 	public TakeNextTurn() {}
-	public void effective(Charactor actor) {
-		RoundController.getObject().startPlay(actor);
+	public void effective(Behavior behavior) {
+		RoundController.getObject().startPlay(behavior.getActor());
 	}
 }
