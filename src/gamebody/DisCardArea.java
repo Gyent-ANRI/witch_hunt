@@ -19,6 +19,7 @@ public class DisCardArea {
 	}
 	
 	public void addCard(RumourCard newCard) {
+		BroadCast.getObject().broad(newCard.getName() + " is discarded");
 		myCardlist.add(newCard);
 	}
 	

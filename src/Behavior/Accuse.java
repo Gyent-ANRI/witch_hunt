@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import Players.Charactor;
+import gamebody.BroadCast;
 import gamebody.RoundController;
 
 public class Accuse extends Behavior{
@@ -32,6 +33,7 @@ public class Accuse extends Behavior{
 		//ask actor 
 		super.getActor().getInteractionWindow().outPut("please chose the one you want to accuse");
 		int answer = super.getActor().getInteractionWindow().makeChoice(nameOfPlayers);
+		BroadCast.getObject().broad(myplayers.get(answer-1).getName() + " is accused");
 		myplayers.get(answer-1).accused(super.getActor());
 	}
 

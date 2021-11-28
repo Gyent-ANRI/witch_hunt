@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import Behavior.Behavior;
+import Behavior.RevealRumourCard_Witch;
 import CardEffects.CardEffect;
 import CardEffects.ChooseNextPlayer;
 import CardEffects.TakeNextTurn;
@@ -34,7 +35,7 @@ public class PointedHat extends RumourCard{
 	public void witch(Behavior behavior) {
 		if(!hasRevealedCard(behavior.getActor())) {
 			behavior.getActor().getInteractionWindow().outPut("Only playable if you have a revealed rumour card");
-			behavior.getActor().takeTurn();
+			behavior.getActor().accused(((RevealRumourCard_Witch)behavior).getReasonOne() );
 		}
 		else {
 			behavior.getActor().reduceCard(this);

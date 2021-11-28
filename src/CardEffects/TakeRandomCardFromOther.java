@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import Behavior.Behavior;
 import Cartes.RumourCard;
 import Players.Charactor;
+import gamebody.BroadCast;
 import gamebody.RoundController;
 
 public class TakeRandomCardFromOther extends CardEffect{
@@ -21,6 +22,7 @@ public class TakeRandomCardFromOther extends CardEffect{
 		//ask actor 
 		behavior.getActor().getInteractionWindow().outPut("please chose next player and get random card from him.");
 		int answer = behavior.getActor().getInteractionWindow().makeChoice(nameOfPlayers);
+		BroadCast.getObject().broad(myplayers.get(answer-1).getName() + " is pointed by HookedNose");
 		
 		//check whether the choosen one has card
 		RumourCard[] myCards = myplayers.get(answer-1).cardList();
@@ -33,6 +35,7 @@ public class TakeRandomCardFromOther extends CardEffect{
 			myCards[randomCode].setOwner(behavior.getActor());
 			myplayers.get(answer-1).reduceCard(myCards[randomCode]);
 		}
+		myplayers.get(answer-1).takeTurn();
 	}
 
 }

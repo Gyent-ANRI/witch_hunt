@@ -70,6 +70,7 @@ public class Charactor {
 				j++;
 			}
 		}
+		this.myInteractionWindow.outPut("You loose Card: " + card.getName());
 	}
 	
 	public Identity revealIdentity() {
@@ -102,7 +103,6 @@ public class Charactor {
 	}
 	
 	public void accused(Charactor actor) {
-		BroadCast.getObject().broad(name + " is accused");
 		myInteractionWindow.outPut("Your are accused ! What do you want to do? ");
 		int answer = myInteractionWindow.makeChoice(new String[] {"Use Rumour Card", "Reveal Identity"});
 		switch(answer) {

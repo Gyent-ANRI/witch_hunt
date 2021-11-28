@@ -1,6 +1,7 @@
 package Cartes;
 
 import Behavior.Behavior;
+import Behavior.RevealRumourCard_Witch;
 import CardEffects.CardEffect;
 import CardEffects.DiscardFromHand;
 import CardEffects.SecretlyLookIdentity;
@@ -18,7 +19,7 @@ public class TheInquisition extends RumourCard{
 	public void witch(Behavior behavior) {
 		if(behavior.getActor().cardList().length == 0) {
 			behavior.getActor().getInteractionWindow().outPut("You must have a card to discard");
-			behavior.getActor().takeTurn();
+			behavior.getActor().accused(((RevealRumourCard_Witch)behavior).getReasonOne());
 		}
 		else {
 			behavior.getActor().reduceCard(this);

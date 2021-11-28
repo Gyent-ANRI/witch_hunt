@@ -20,8 +20,6 @@ public class BlackCat extends RumourCard{
 	}
 	
 	public void hunt(Behavior behavior) {
-		behavior.getActor().reduceCard(this);
-		RevealedCardArea.getObject().addCard(this);
 		super.hunt(behavior);
 	}
 }
