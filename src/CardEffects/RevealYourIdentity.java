@@ -19,10 +19,10 @@ public class RevealYourIdentity extends CardEffect{
 			LinkedList<Charactor> playerList = RoundController.getObject().getCharactorList();
 			int index = playerList.indexOf(behavior.getActor());
 			if(index == 0) {
-				playerList.getLast().takeTurn();
+				RoundController.getObject().setNext(playerList.getLast());
 			}
 			else {
-				playerList.get(index-1).takeTurn();
+				RoundController.getObject().setNext(playerList.get(index-1));
 			}
 			break;
 			

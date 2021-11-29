@@ -29,6 +29,6 @@ public class SecretlyLookIdentity extends CardEffect{
 		
 		behavior.getActor().getInteractionWindow().outPut(name + "'s identity is " + id.toString());
 		
-		RoundController.getObject().startPlay(myplayers.get(answer-1));
+		RoundController.getObject().setNext(myplayers.get(answer-1));
 	}
 }

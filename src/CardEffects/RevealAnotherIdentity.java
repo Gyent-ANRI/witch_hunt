@@ -52,11 +52,11 @@ public class RevealAnotherIdentity extends CardEffect{
 		switch(id) {
 		case witch:
 			actor.modifyScore(2);
-			RoundController.getObject().startPlay(actor);
+			RoundController.getObject().setNext(actor);
 			break;
 		case villager:
 			actor.modifyScore(-2);
-			RoundController.getObject().startPlay(myplayers.get(answer-1));
+			RoundController.getObject().setNext(myplayers.get(answer-1));
 		}
 	} 
 }

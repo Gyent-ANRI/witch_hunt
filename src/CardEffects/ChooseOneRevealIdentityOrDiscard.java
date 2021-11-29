@@ -70,7 +70,7 @@ public class ChooseOneRevealIdentityOrDiscard extends CardEffect{
 			int discard = behavior.getActor().getInteractionWindow().makeChoice(nameOfCards);
 			choosenOne.reduceCard(myCards[discard-1]);
 			DisCardArea.getObject().addCard(myCards[discard-1]);
-			choosenOne.takeTurn();
+			RoundController.getObject().setNext(choosenOne);
 		}
 	}
 }

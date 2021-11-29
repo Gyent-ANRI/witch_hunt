@@ -35,7 +35,7 @@ public class TakeRandomCardFromOther extends CardEffect{
 			myCards[randomCode].setOwner(behavior.getActor());
 			myplayers.get(answer-1).reduceCard(myCards[randomCode]);
 		}
-		myplayers.get(answer-1).takeTurn();
+		RoundController.getObject().setNext(myplayers.get(answer-1));
 	}
 
 }

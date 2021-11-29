@@ -69,16 +69,19 @@ public class GameController {
 	}
 	
 	public void roundStart() {
-		numRound += 1;
-		BroadCast.getObject().broad("Round " + numRound + " started");
-		//reset the cards and the status of the players
-		for(int i = 1; i <= myPlayers.size(); i++) {
-			myPlayers.get(i-1).reset();
+		while(true) {
+			numRound += 1;
+			BroadCast.getObject().broad("Round " + numRound + " started");
+			//reset the cards and the status of the players
+			for(int i = 1; i <= myPlayers.size(); i++) {
+				myPlayers.get(i-1).reset();
+			}
+			myRoundController = RoundController.newObject(myPlayers);
+			myRoundController.distributeCard();
+			myRoundController.chooseIdentity();
+			myRoundController.decideFirstPlayer();
+			myRoundController.startPlay();
 		}
-		myRoundController = RoundController.newObject(myPlayers);
-		myRoundController.distributeCard();
-		myRoundController.chooseIdentity();
-		myRoundController.startPlay(myRoundController.decideFirstPlayer());
 	}
 	
 	public void roundOver(Charactor survivor) {
@@ -92,7 +95,6 @@ public class GameController {
 			survivor.modifyScore(1);
 		}
 		
-		roundStart();
 	}
 	
 	public void gameOver(Charactor winner){

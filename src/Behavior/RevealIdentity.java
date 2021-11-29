@@ -16,10 +16,10 @@ public class RevealIdentity extends Behavior{
 		case witch:
 			RoundController.getObject().outOfRound(super.getActor());
 			reasonOne.modifyScore(1);
-			RoundController.getObject().startPlay(reasonOne);
+			RoundController.getObject().setNext(reasonOne);
 			break;
 		case villager:
-			RoundController.getObject().startPlay(super.getActor());
+			RoundController.getObject().setNext(super.getActor());
 		}
 	}
 }

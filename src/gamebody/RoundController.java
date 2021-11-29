@@ -9,6 +9,7 @@ import Players.Charactor;
 public class RoundController {
 	
 	private LinkedList<Charactor> listPlayers;
+	private Charactor nextPlayer;
 	static RoundController myObject = null;
 	
 	private RoundController() {
@@ -100,10 +101,10 @@ public class RoundController {
 		}
 	}
 	
-	public Charactor decideFirstPlayer() {
+	public void decideFirstPlayer() {
 		int num = (int)(Math.random()*(listPlayers.size() - 0.1));
 		
-		return listPlayers.get(num);
+		nextPlayer = listPlayers.get(num);
 	}
 	
 	public void chooseIdentity() {
@@ -122,24 +123,26 @@ public class RoundController {
 		}
 	}
 	
-	public void startPlay(Charactor player) {
-		
-		//if there is only one player with identity no revealed, we call roundOver().
-		int numOfSurvivor = 0;
-		Charactor survivor = null;
-		for(int i = 1; i <= listPlayers.size(); i++) {
-			if(!listPlayers.get(i-1).identityRevealed()) {
-				numOfSurvivor += 1;
-				survivor = listPlayers.get(i-1);
+	public void startPlay() {
+		while(true) {
+			//if there is only one player with identity no revealed, round over.
+			int numOfSurvivor = 0;
+			Charactor survivor = null;
+			for(int i = 1; i <= listPlayers.size(); i++) {
+				if(!listPlayers.get(i-1).identityRevealed()) {
+					numOfSurvivor += 1;
+					survivor = listPlayers.get(i-1);
+				}
 			}
+			if(numOfSurvivor == 1) {
+				GameController.getObject().roundOver(survivor);
+				return;
+			}
+			
+			
+			BroadCast.getObject().broad(nextPlayer.getName() + "'s turn");
+			nextPlayer.takeTurn();
 		}
-		if(numOfSurvivor == 1) {
-			GameController.getObject().roundOver(survivor);
-		}
-		
-		
-		BroadCast.getObject().broad(player.getName() + "'s turn");
-		player.takeTurn();
 	}
 	
 	public void outOfRound(Charactor outer) {
@@ -152,5 +155,9 @@ public class RoundController {
 		LinkedList<Charactor> copy = new LinkedList<Charactor>();
 		copy.addAll(listPlayers);
 		return copy;
+	}
+	
+	public void setNext(Charactor c) {
+		nextPlayer = c;
 	}
 }

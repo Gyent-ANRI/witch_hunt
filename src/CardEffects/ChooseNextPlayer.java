@@ -22,7 +22,7 @@ public class ChooseNextPlayer extends CardEffect {
 		behavior.getActor().getInteractionWindow().outPut("Please choose next player ");
 		int answer = behavior.getActor().getInteractionWindow().makeChoice(nameOfPlayers);
 		
-		RoundController.getObject().startPlay(myplayers.get(answer-1));
+		RoundController.getObject().setNext(myplayers.get(answer-1));
 	}
 	
 }
