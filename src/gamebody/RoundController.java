@@ -3,9 +3,14 @@ package gamebody;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import Cartes.*;
-import Players.Charactor;
+import cards.*;
+import players.Charactor;
 
+/**
+ * class to control the progress of the round
+ * @author User
+ *
+ */
 public class RoundController {
 	
 	private LinkedList<Charactor> listPlayers;
@@ -31,7 +36,9 @@ public class RoundController {
 		return myObject;
 	}
 	
-	//now just give everyone TestCards
+	/**
+	 * method to distribute cards to every players
+	 */
 	public void distributeCard() {
 		//decide number of Card for each player
 		int numplayer = listPlayers.size();
@@ -65,6 +72,7 @@ public class RoundController {
 				new Toad(),
 				new Wart(),
 		};
+		
 		//get a random double array
 		double[] poid = new double[] {Math.random(),Math.random(),Math.random(),Math.random(),
 				Math.random(),Math.random(),Math.random(),Math.random(),
@@ -101,12 +109,18 @@ public class RoundController {
 		}
 	}
 	
+	/**
+	 * Randomly take a player and put it in the next player's place
+	 */
 	public void decideFirstPlayer() {
 		int num = (int)(Math.random()*(listPlayers.size() - 0.1));
 		
 		nextPlayer = listPlayers.get(num);
 	}
 	
+	/**
+	 * Each player chooses their identity
+	 */
 	public void chooseIdentity() {
 		for(int i = 1; i <= listPlayers.size(); i++) {
 			listPlayers.get(i-1).getInteractionWindow().outPut("Choose Your Identity");
@@ -123,6 +137,9 @@ public class RoundController {
 		}
 	}
 	
+	/**
+	 * Determine if the round should end, otherwise the next player takes the turn
+	 */
 	public void startPlay() {
 		while(true) {
 			//if there is only one player with identity no revealed, round over.
@@ -139,24 +156,34 @@ public class RoundController {
 				return;
 			}
 			
-			
 			BroadCast.getObject().broad(nextPlayer.getName() + "'s turn");
 			nextPlayer.takeTurn();
 		}
 	}
 	
+	/**
+	 * remove a player from the list of players
+	 * @param outer
+	 */
 	public void outOfRound(Charactor outer) {
 		listPlayers.remove(outer);
 		BroadCast.getObject().broad(outer.getName() +" is out of round");
 	}
 	
-	//return a copy of listPlayers and make sure that only outOfRound() is able to change listPlayers
+	/**
+	 * return a copy of listPlayers and make sure that only outOfRound() is able to change listPlayers
+	 * @return copy of the list of players
+	 */
 	public LinkedList<Charactor> getCharactorList() {
 		LinkedList<Charactor> copy = new LinkedList<Charactor>();
 		copy.addAll(listPlayers);
 		return copy;
 	}
 	
+	/**
+	 * method to set the next player
+	 * @param c
+	 */
 	public void setNext(Charactor c) {
 		nextPlayer = c;
 	}
