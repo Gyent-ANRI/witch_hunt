@@ -23,7 +23,7 @@
 每个玩家都有一个交互窗口对象，虚拟玩家也有特制的窗口，所有人机交互一定会通过窗口
 - Charactor: 对应真实玩家，能够计分，得到卡，失去卡，进行自己的回合，对指控做出反应
 - InteractionWindow: 真实玩家的交互窗口，被vue中的GUI观察，数据更改后会提示图形界面做出改变
-- InputManager: 单例，为了实现命令行和图形界面交叉输入而使用的缓冲区，观察两条对应的线程，被请求读取输入后唤醒它们，并在得到数据后阻塞它们
+- InputManager: 单例，为了实现命令行和图形界面交叉输入而使用的缓冲区，观察[两条对应的线程](https://github.com/Gyent-ANRI/witch_hunt#threads)，被请求读取输入后唤醒它们，并在得到数据后阻塞它们
 - Virtualplaye & VirtualInteractionWindow: 继承自真实玩家和它的窗口，不再输出消息并且自动返回随机数
 - behavoir: 由于有的牌效需要知道指控的动作发起人，用behavior来封装所有行为并且储存行为发起人和行为目标
 ### threads
